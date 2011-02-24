@@ -33,11 +33,11 @@ A `__callStatic` magic method (PHP 5.3) was added to allow setting messages in a
 
     Hint::error('%s is not writable', array($file));
 
-Compare
+Compare:
 
     Hint::set(Hint::SUCCESS, 'Your account has been deleted');
 
-Versus
+Versus:
 
     Hint::success('Your account has been deleted');
 
