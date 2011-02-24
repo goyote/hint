@@ -2,8 +2,8 @@
 
 Hint is a light version of the MSG module. Some of the big changes are:
 
-- Support for multiple drivers is dropped (as well as the cookie driver.) Messages will now be stored in the session by default (which is the common scenario, if you need cookie support use the MSG module.)
-- Hint no longer needs the singleton pattern; it has evolved into a fully static class (which was my original intention for MSG.) 
+- Support for multiple drivers is dropped (as well as the cookie driver.) Messages are now stored in the session by default (which is the common scenario, if you need cookie support use the MSG module.)
+- Hint no longer needs the singleton pattern; it has evolved into a full static class (which was my original intention for MSG.)
 
 This allows leaner code:
 
