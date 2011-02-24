@@ -92,6 +92,23 @@ class HintTest extends Kohana_Unittest_TestCase {
 	}
 
 	/**
+	 * @covers  Hint::set
+	 */
+	public function testSettingMultipleMessages()
+	{
+		$array = array(
+			'text1',
+			'text2',
+		);
+		Hint::set(Hint::SUCCESS, $array);
+		$messages = Hint::get();
+		$this->assertSame('success', $messages[0]['type']);
+		$this->assertSame('text1', $messages[0]['text']);
+		$this->assertSame('success', $messages[1]['type']);
+		$this->assertSame('text2', $messages[1]['text']);
+	}
+
+	/**
 	 * @test
 	 * @covers  Hint::set
 	 */
