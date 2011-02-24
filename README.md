@@ -102,11 +102,11 @@ e.g. `messages/hint.php`
     
     return array(
         'auth' => array(
-            login => array(
+            'login' => array(
                 'success' => 'Welcome back, :username',
                 'error' => 'You are already logged in',
             ),
-            'logout => array(
+            'logout' => array(
                 'success' => 'See ya, come back soon',
             ),
             'register' => array(
