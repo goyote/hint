@@ -1,6 +1,6 @@
 # [Hint Module](https://github.com/goyote/hint) for the Kohana Framework
 
-Hint is a light version of the MSG module. Some of the big changes are:
+Hint is a light version of the [MSG module](https://github.com/goyote/msg). Some of the big changes are:
 
 - Support for multiple drivers is dropped (as well as the cookie driver.) Messages are now stored in the session by default (which is the common scenario, if you need cookie support use the MSG module.)
 - Hint no longer needs the singleton pattern; it has evolved into a full static class (which was my original intention for MSG.)
