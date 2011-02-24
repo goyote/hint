@@ -29,7 +29,7 @@ Hint supports both `sprintf` a `strtr` for embedding values into the message.
     Hint::set(Hint::ERROR, ':file is not writable', 
         array(':file' => $file));
 
-A `__callStatic` magic method (PHP 5.3) was added to allow you to set messages in a clearer fashion.
+A `__callStatic` magic method (PHP 5.3) was added to allow setting messages in a clearer fashion.
 
     Hint::error('%s is not writable', array($file));
 
@@ -48,13 +48,13 @@ Hint installs like any other module. If you're familiar with git, you can fire u
 
     git submodule add git://github.com/goyote/hint.git modules/hint
 
-[!!] **Note:** For a better description on how to add ko modules, please read [http://kohanaframework.org/guide/kohana/tutorials/git](http://kohanaframework.org/guide/kohana/tutorials/git).
+**Note:** For a better description on how to add ko modules, please read [http://kohanaframework.org/guide/kohana/tutorials/git](http://kohanaframework.org/guide/kohana/tutorials/git).
 
 Alternatively, you can install Hint manually. To do so, first download the zip file from [http://github.com/goyote/hint](http://github.com/goyote/hint) and extract the `hint` folder into your `modules` directory. Then open the bootstrap file, and modify the `Kohana::modules` function call:
 
     Kohana::modules(array(
         ...
-        'hint' => MODPATH.'hint', // Short messages
+        'hint' => MODPATH.'hint', // Light "flash" messages
 
 ---
 ## Usage
@@ -118,7 +118,7 @@ e.g. `messages/hint.php`
         'some_other_controller' => ...
     );
 
-Then in your logic, you can use the message file:
+Then in your logic, use the message file:
 
     Hint::error(__(Kohana::message('hint', 'auth.login.error')));
     
@@ -159,12 +159,12 @@ If no messages are found, `get()` will return `NULL`. To override this default v
 `get_once()` behaves exactly like `get()`, but the only difference is, `get_once()` deletes the messages after retrieval.
     
     // Get messages
-    $messages = Hint->get_once();
+    $messages = Hint::get_once();
     
-    Hint->get(); // Returns NULL
+    Hint::get(); // Returns NULL
     
     // `get_once` also retrieves by type
-    $alert_messages = Hint->get_once(Hint::ALERT);
+    $alert_messages = Hint::get_once(Hint::ALERT);
 
 ### delete()
 
@@ -178,17 +178,17 @@ If no messages are found, `get()` will return `NULL`. To override this default v
 
 Finally, you'll want to render the messages in the easiest way possible. To do that, all you have to do is call `echo Hint::render()` anywhere in your view.
 
-    &lt;div id="wrapper"&gt;
+    <div id="wrapper">
         ...
-        &lt;?php echo Hint::render() ?&gt;
+        <?php echo Hint::render() ?>
 
 Or, you can render only a specific type of message, e.g.
 
-    &lt;!-- Render all the messages except the errors at the top of the page --&gt;
-    &lt;?php echo Hint::render(array(1 =&gt; array(Hint::ERROR))) ?&gt;
-    &lt;form ...&gt;
-        &lt;!-- Now render the error messages --&gt;
-        &lt;?php echo Hint::render(Hint::ERROR) ?&gt;
+    <!-- Render all the messages except the errors at the top of the page -->
+    <?php echo Hint::render(array(1 => array(Hint::ERROR))) ?>
+    <form ...>
+        <!-- Now render the error messages -->
+        <?php echo Hint::render(Hint::ERROR) ?>
 
 Render the messages in a custom view:
 
@@ -196,7 +196,7 @@ Render the messages in a custom view:
 
 `render()` returns a string.
 
-You can modify the default view `hint/default` by copy-pasting it into your `application/views` directory, and making your modifications there.
+You can modify the default view `hint/default` by copy-pasting the file into your `application/views` directory, and making your modifications there.
 
 ---
 ## Types of messages (constants)
