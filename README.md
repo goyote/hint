@@ -1,4 +1,4 @@
-# [Hint Module](http://kohanaftw.com/modules/hint/) for the Kohana Framework
+# [Hint Module](https://github.com/goyote/hint) for the Kohana Framework
 
 Hint is a light version of the MSG module. Some of the big changes are:
 
