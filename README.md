@@ -31,15 +31,9 @@ Hint supports both `sprintf` a `strtr` for embedding values into the message.
 
 A `__callStatic` magic method (PHP 5.3) was added to allow setting messages in a clearer fashion.
 
-    Hint::error('%s is not writable', array($file));
+    Hint::error('user.login.not_exists');
 
-Compare:
-
-    Hint::set(Hint::SUCCESS, 'Your account has been deleted');
-
-Versus:
-
-    Hint::success('Your account has been deleted');
+For more information, please read the "Strategies" section below.
 
 ---
 ## Installation
@@ -84,13 +78,9 @@ You can embed values into the message with `sprintf` or `strtr`.
     Hint::set(Hint::ERROR, ':file is not writable', 
         array(':file' => $file));
 
-You can also set new messages using the `__callStatic` magic method (PHP 5.3)
-
-    Hint::error(array_values($post->errors()));
-
 If you need to attach additional data to the message, you can use the fourth parameter (it accepts data of any type.)
 
-    Hint::notice('Your profile is empty', NULL, array('help' => 'Did you forget to...'));
+    Hint::set(Hint::NOTICE, 'Your profile is empty', NULL, array('help' => 'Did you forget to...'));
 
 #### Strategies
 
@@ -104,26 +94,50 @@ e.g. `messages/hint.php`
         'auth' => array(
             'login' => array(
                 'success' => 'Welcome back, :username',
-                'error' => 'You are already logged in',
+                'error'   => 'You are already logged in',
             ),
             'logout' => array(
                 'success' => 'See ya, come back soon',
             ),
             'register' => array(
                 'success' => 'You have successfully registered a new account',
-                'error' => 'Please logout before creating a new account',
+                'error'   => 'Please logout before creating a new account',
             ),
             'some_other_action' => ...
         ),
         'some_other_controller' => ...
+        'common' => array(
+            'not_writable' => '%s is not writable',
+        ),
     );
 
-Then in your logic, use the message file:
+You're free to organize the messages however you want. I recommend:
 
-    Hint::error(__(Kohana::message('hint', 'auth.login.error')));
+    controller.action.type
     
-    Hint::set(Hint::SUCCESS, Kohana::message('hint', 'auth.login.success'),
-		array(':username' => $this->user->username));
+    // Examples
+    user.login.success
+    user.login.error
+
+Or:
+
+    controller.action.description
+
+    // Examples
+    user.login.not_exists
+    user.login.wrong_credentials
+
+These hierarchies allow you to pinpoint the exact location of the message at a mere glance.
+
+Once the messages are stored in `messages/hint.php`, you can start using them by providing the array path to the message (uses the `__callStatic` magic method.)
+
+    Hint::error('auth.login.error');
+    
+    Hint::error('common.not_writable', array($file));
+    
+    Hint::success('auth.login.success', array(':username' => $username));
+
+Behind the scenes, a translation will be made using the `__()` function.
 
 ### get()
 

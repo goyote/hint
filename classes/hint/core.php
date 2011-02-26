@@ -1,6 +1,6 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 /**
- * Hint is a light 'flash' messaging system for the Kohana framework.
+ * Light "flash" messages for the Kohana framework.
  *
  * @package    Hint
  * @category   Base
@@ -86,19 +86,24 @@ class Hint_Core {
 	}
 
 	/**
-	 * Set a new message (PHP 5.3)
+	 * Set a new message using the `messages/hint` file.
 	 *
-	 *     Hint::success('Your account has been deleted');
+	 *     // The array path to the message
+	 *     Hint::error('user.login.error');
 	 *
 	 *     // Embed some values
-	 *     Hint::error('%s is not writable', array($file));
+	 *     Hint::success('user.login.success', array($username));
 	 *
 	 * @param  string  message type (e.g. Hint::SUCCESS)
 	 * @param  array   remaining parameters
+	 * @uses   __()
 	 */
 	public static function __callStatic($type, $arg)
 	{
-		Hint::set($type, $arg[0], Arr::get($arg, 1), Arr::get($arg, 2));
+		// Get the message
+		$message = Kohana::message('hint', $arg[0]);
+
+		Hint::set($type, __($message), Arr::get($arg, 1), Arr::get($arg, 2));
 	}
 
 	/**

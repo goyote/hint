@@ -76,17 +76,22 @@ class HintTest extends Kohana_Unittest_TestCase {
 		$this->assertSame($data, $messages[0]['data']);
 	}
 
-	/**
-	 * @test
-	 * @dataProvider  provider_test_set_and_get
-	 * @covers  Hint::set
-	 */
-	public function test_set_and_get_callStatic($type, $text, $values, $data)
+	public function testCallStatic()
 	{
-		Hint::$type($text, $values, $data);
-		$messages = Hint::get();
-		$this->assertType('array', $messages);
-		$this->assertSame($type, $messages[0]['type']);
+		/*
+		return array(
+			'i' => array(
+				'am' => array(
+					'legend' => '%s',
+				),
+			),
+		);
+		*/
+		$text = 'ROFL';
+		$data = array('oh', 'my', 'god');
+		Hint::error('i.am.legend', array($text), $data);
+		$messages = Hint::get_once();
+		$this->assertSame('error', $messages[0]['type']);
 		$this->assertSame($text, $messages[0]['text']);
 		$this->assertSame($data, $messages[0]['data']);
 	}
@@ -124,38 +129,12 @@ class HintTest extends Kohana_Unittest_TestCase {
 	 * @test
 	 * @covers  Hint::set
 	 */
-	public function test_embedding_values_with_sprintf_callStatic()
-	{
-		$expected_outcome = 'You are 2 dorky';
-		Hint::access('You are %d %s', array(2, 'dorky'));
-		$messages = Hint::get();
-		$this->assertSame($expected_outcome, $messages[0]['text']);
-	}
-
-	/**
-	 * @test
-	 * @covers  Hint::set
-	 */
 	public function test_embedding_values_with_strtr()
 	{
 		$expected_outcome = 'You are 2 dorky';
 		Hint::set(Hint::ACCESS, 'You are :amount :state',
 			array(':amount' => 2, ':state' => 'dorky'));
 		$messages = Hint::get_once();
-		$this->assertSame($expected_outcome, $messages[0]['text']);
-	}
-
-	/**
-	 * @test
-	 * @covers  Hint::get
-	 * @covers  Hint::set
-	 */
-	public function test_embedding_values_with_strtr_callStatic()
-	{
-		$expected_outcome = 'You are 2 dorky';
-		Hint::access('You are :amount :state',
-			array(':amount' => 2, ':state' => 'dorky'));
-		$messages = Hint::get();
 		$this->assertSame($expected_outcome, $messages[0]['text']);
 	}
 
