@@ -1,6 +1,6 @@
 # 1.1 (02/25/11)
 
-- `__callStatic` now accepts the path to a message stored in `messages/hint`; will translate by default
+- `__callStatic` changed to retrieve messages from `messages/hint.php`; will translate by default
 
 # 1.0 (02/23/11)
 
