@@ -25,6 +25,11 @@ class Hint_Core {
 	public static $storage_key = 'hint';
 
 	/**
+	 * @var  string  default view name
+	 */
+	public static $view = 'hint/default';
+
+	/**
 	 * Set a new message.
 	 *
 	 *     Hint::set(Hint::SUCCESS, 'Your account has been deleted');
@@ -263,7 +268,7 @@ class Hint_Core {
 		if ($view === NULL)
 		{
 			// Use the default view
-			$view = 'hint/default';
+			$view = Hint::$view;
 		}
 
 		if ( ! $view instanceof View)
